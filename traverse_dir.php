@@ -1,4 +1,21 @@
+
 <?php
+/*
+ * 该算法会产生如下的输出:
+ *
+ array(5) {
+  [0]=>
+  string(25) "/home/wangfeng/test/a.txt"
+  [1]=>
+  string(25) "/home/wangfeng/test/b.txt"
+  [2]=>
+  string(34) "/home/wangfeng/test/sub_test/c.txt"
+  [3]=>
+  string(34) "/home/wangfeng/test/sub_test/d.txt"
+  [4]=>
+  string(45) "/home/wangfeng/test/sub_test/third_test/e.txt"
+}
+*/
 $res = array();
 
 function traverse($file){
