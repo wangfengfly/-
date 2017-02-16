@@ -49,6 +49,25 @@ class BST{
             }
         }
     }
+    /*
+     * 根据$k获取对应的值
+     */
+    public function getValue($k){
+        return $this->_getValue($this->root, $k);
+    }
+    
+    private function _getValue($root, $k){
+        if($root == null){
+            return null;
+        }
+        if($k == $root->key){
+            return $root->value;
+        }else if($k > $root->key){
+            return $this->_getValue($root->right, $k);
+        }else{
+            return $this->_getValue($root->left, $k);
+        }
+    }
     
     public function printTree(){
         var_dump($this->root);
@@ -60,6 +79,7 @@ $arr = array('4' => 'abc', '5' => 'aaa', '1' => 'bbb', '2' => 'ccc', '6' => 'ddd
 $b = new BST($arr);
 $b->buildTree();
 $b->printTree();
+echo $b->getValue('2') . "\n";
 
 
 
