@@ -46,6 +46,7 @@ function qsort(&$str, $l, $h){
 function next_greater($str){
     $len = strlen($str);
     $i = $len-2;
+    //从最右边开始，找到比后一个数小的位置
     while($i >= 0){
         if($str[$i] >= $str[$i+1]){
             $i--;
@@ -53,14 +54,16 @@ function next_greater($str){
             break;
         }
     }
-
+    //找出该位置后面比该数大的最小的数字
     $k = $i+1;
     for($j=$k+1; $j<$len; $j++){
         if($str[$j] < $str[$k] && $str[$j] > $str[$i]){
             $k = $j;
         }
     }
+    //将两个数进行交换
     swap($str, $i, $k);
+    //该数右边的数升序排序
     qsort($str, $i+1, $len-1);
     echo $str .PHP_EOL;
 }
