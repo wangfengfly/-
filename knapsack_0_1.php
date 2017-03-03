@@ -4,7 +4,7 @@
  * User: wangfeng
  * Date: 2017/3/3
  * Time: 9:43
- * 0-1背包 递归解法
+ * 0-1背包 算法
  */
 
  /*
@@ -38,12 +38,37 @@ function sub2($v, $w, $i, $W){
     }
 }
 
+/*
+ * 非递归解法
+ */
+function dp($v, $w, $W){
+    $dp = array();
+    $n = count($v);
+    for($i=0;$i<=$n;$i++){
+        for($j=0; $j<=$W; $j++){
+            if($i==0 || $j==0){
+                $dp[$i][$j] = 0;
+            }else{
+                if($w[$i-1]>$j){
+                    $dp[$i][$j] = $dp[$i-1][$j];
+                }else{
+                    $dp[$i][$j] = max($dp[$i-1][$j-$w[$i-1]]+$v[$i-1], $dp[$i-1][$j]);
+                }
+            }
+        }
+    }
+    return $dp[$n][$W];
+}
+
 $v = array(10, 15, 18, 22);
 $w = array(5, 4, 6, 8);
 $W = 15;
 $sum = 0;
 $sum = sub($v, $w, count($v), $W);
-var_dump($sum);
+echo $sum . PHP_EOL;
 
 $sum = sub2($v, $w, 0, $W);
-var_dump($sum);
+echo $sum .PHP_EOL;
+
+$sum = dp($v, $w, $W);
+echo $sum . PHP_EOL;
