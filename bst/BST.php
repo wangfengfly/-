@@ -79,7 +79,7 @@ class BST{
         if($root == null){
             return 0;
         }
-        if($count > $k){
+        if($count >= $k){
             return 0;
         }
         $res = $this->getkSum($root->left, $k, $count);
@@ -107,7 +107,7 @@ $b->buildTree();
 $b->printTree();
 //echo $b->getValue('2') . "\n";
 $count = 0;
-echo $b->getkSum($b->getRoot(), 4, $count) .PHP_EOL;
+echo $b->getkSum($b->getRoot(), 7, $count) .PHP_EOL;
 
 
 
