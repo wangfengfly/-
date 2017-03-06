@@ -75,14 +75,14 @@ class BST{
     /*
      * root为根的树，前k个最小的元素之和
      */
-    public function getkSum($root, $k, &$count){
+    public function getkMinSum($root, $k, &$count){
         if($root == null){
             return 0;
         }
         if($count >= $k){
             return 0;
         }
-        $res = $this->getkSum($root->left, $k, $count);
+        $res = $this->getkMinSum($root->left, $k, $count);
         if($count >= $k){
             return $res;
         }
@@ -91,8 +91,30 @@ class BST{
         if($count >= $k){
             return $res;
         }
-        return $res + $this->getkSum($root->right, $k, $count);
+        return $res + $this->getkMinSum($root->right, $k, $count);
 
+    }
+    
+    /*
+     * root为根，前k个最小元素之和
+     * 第二种解法
+     */
+    public function getkMinSum2($root, &$k){
+        if($root == null || $k<=0){
+            return 0;
+        }
+
+        $res = $this->getkMinSum2($root->left, $k);
+        if($k<=0){
+            return $res;
+        }
+        $res += $root->key;
+        $k--;
+        if($k<=0){
+            return $res;
+        }
+        $res += $this->getkMinSum2($root->right, $k);
+        return $res;
     }
 
     public function getRoot(){
@@ -104,10 +126,13 @@ class BST{
 $arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '1' => 'bbb', '6' => 'ddd', '9'=>'');
 $b = new BST($arr);
 $b->buildTree();
-$b->printTree();
+//$b->printTree();
 //echo $b->getValue('2') . "\n";
 $count = 0;
-echo $b->getkSum($b->getRoot(), 7, $count) .PHP_EOL;
+echo $b->getkMinSum($b->getRoot(), 4, $count) .PHP_EOL;
+
+$k = 4;
+echo $b->getkMinSum2($b->getRoot(), $k) . PHP_EOL;
 
 
 
