@@ -120,6 +120,34 @@ class BST{
     public function getRoot(){
         return $this->root;
     }
+    /*
+     * 垂直打印二叉树
+     *
+     */
+    public function printTreeVertically($root){
+        if($root == null){
+            return;
+        }
+        $map = array();
+        $q = new SplQueue();
+        $q->enqueue(array($root, 0));
+        while(!$q->isEmpty()){
+            $temp = $q->dequeue();
+            $node = $temp[0];
+            $hd = $temp[1];
+            $map[$hd][] = $node->key;
+            if($node->left != null){
+                $q->enqueue(array($node->left, $hd-1));
+            }
+            if($node->right != null){
+                $q->enqueue(array($node->right, $hd+1));
+            }
+        }
+
+        foreach($map as $hd => $list){
+            echo "$hd: ". implode(',', $list) .PHP_EOL;
+        }
+    }
 
 }
 
@@ -127,13 +155,13 @@ $arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '
 $b = new BST($arr);
 $b->buildTree();
 //$b->printTree();
-//echo $b->getValue('2') . "\n";
 $count = 0;
 echo $b->getkMinSum($b->getRoot(), 4, $count) .PHP_EOL;
 
 $k = 4;
 echo $b->getkMinSum2($b->getRoot(), $k) . PHP_EOL;
 
+$b->printTreeVertically($b->getRoot());
 
 
 ?>
