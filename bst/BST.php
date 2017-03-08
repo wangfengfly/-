@@ -176,6 +176,28 @@ class BST{
         }
         echo PHP_EOL;
     }
+
+    /*
+     * 非递归先序遍历二叉树
+     */
+    public function preOrderTraverse($root){
+        if($root == null){
+            return;
+        }
+        $stack = new SplStack();
+        $stack->push($root);
+        while(!$stack->isEmpty()){
+            $temp = $stack->pop();
+            echo $temp->key . ' ';
+            if($temp->right){
+                $stack->push($temp->right);
+            }
+            if($temp->left){
+                $stack->push($temp->left);
+            }
+        }
+        echo PHP_EOL;
+    }
 }
 
 $arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '1' => 'bbb', '6' => 'ddd', '9'=>'');
@@ -190,6 +212,6 @@ echo $b->getkMinSum2($b->getRoot(), $k) . PHP_EOL;
 
 $b->printTreeVertically($b->getRoot());
 $b->postTraverse($b->getRoot());
-
+$b->preOrderTraverse($b->getRoot());
 
 ?>
