@@ -198,9 +198,37 @@ class BST{
         }
         echo PHP_EOL;
     }
+
+    /*
+     * 非递归中序遍历
+     */
+    public function inOrderTraverse($root){
+        if($root == null){
+            return;
+        }
+        $stack = new SplStack();
+        $stack->push($root);
+        while(!$stack->isEmpty()){
+            $temp = $stack->pop();
+            if($temp->left==null && $temp->right==null || (!$stack->isEmpty() && $temp->right===$stack->top())
+                || $temp->left == $_temp){
+                $_temp = $temp;
+                echo $temp->key . ' ';
+                continue;
+            }else if($temp->left || $temp->right){
+                if($temp->right) {
+                    $stack->push($temp->right);
+                }
+                $stack->push($temp);
+                if ($temp->left) {
+                    $stack->push($temp->left);
+                }
+            }
+        }
+    }
 }
 
-$arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '1' => 'bbb', '6' => 'ddd', '9'=>'');
+$arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '1' => 'bbb', '6' => 'ddd', '9'=>'', '5'=>'', '10'=>'');
 $b = new BST($arr);
 $b->buildTree();
 //$b->printTree();
@@ -213,5 +241,6 @@ echo $b->getkMinSum2($b->getRoot(), $k) . PHP_EOL;
 $b->printTreeVertically($b->getRoot());
 $b->postTraverse($b->getRoot());
 $b->preOrderTraverse($b->getRoot());
+$b->inOrderTraverse($b->getRoot());
 
 ?>
