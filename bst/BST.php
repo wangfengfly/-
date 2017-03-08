@@ -226,6 +226,31 @@ class BST{
             }
         }
     }
+
+    /*
+     * 中序遍历
+     * 第二种解法
+     */
+    public function inOrderTraverse2($root){
+        if($root == null){
+            return;
+        }
+        $stack = new SplStack();
+        $current = $root;
+        while($current || !$stack->isEmpty()){
+            if($current) {
+                $stack->push($current);
+                $current = $current->left;
+            }
+            else{
+                $temp = $stack->pop();
+                echo $temp->key . ' ';
+                if($temp->right) {
+                    $current = $temp->right;
+                }
+            }
+        }
+    }
 }
 
 $arr = array('4' => 'abc', '8' => 'aaa', '7' => 'aaa',  '2' => 'ccc', '3'=>'', '1' => 'bbb', '6' => 'ddd', '9'=>'', '5'=>'', '10'=>'');
@@ -241,6 +266,6 @@ echo $b->getkMinSum2($b->getRoot(), $k) . PHP_EOL;
 $b->printTreeVertically($b->getRoot());
 $b->postTraverse($b->getRoot());
 $b->preOrderTraverse($b->getRoot());
-$b->inOrderTraverse($b->getRoot());
+$b->inOrderTraverse2($b->getRoot());
 
 ?>
