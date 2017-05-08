@@ -23,6 +23,7 @@ class Node{
 
 class Stack{
     private $head;
+    private $size;
     
     public function push($item){
         $node = new Node();
@@ -33,6 +34,7 @@ class Stack{
             $node->setNext($this->head);
             $this->head = $node;
         }
+        $this->size++;
     }
     
     public function isEmpty(){
@@ -42,7 +44,12 @@ class Stack{
     public function pop(){
         $val = $this->head->getVal();
         $this->head = $this->head->getNext();
+        $this->size--;
         return $val;
+    }
+    
+    public function getSize(){
+        return $this->size;
     }
 }
 
@@ -51,9 +58,9 @@ $stack = new Stack();
 for($i=0; $i<10; $i++){
     $stack->push($i);
 }
-
+echo $stack->getSize() . "\n";
 while(!$stack->isEmpty()){
     echo $stack->pop() . ' ';
 }
-
+echo "\n", $stack->getSize(),"\n";
 ?>
