@@ -21,8 +21,29 @@ function all_subsets($arr, $i, &$res, $index, $r){
     all_subsets($arr, $i+1, $res, $index, $r);
 }
 
-$arr=array('a','b','c');
-$res = array();
-for($l=1;$l<=count($arr); $l++) {
-    all_subsets($arr, 0, $res, 0, $l);
+/*
+ * O(2^n)
+ */
+function all_subsets2($arr){
+    $res = array();
+    $n = count($arr);
+    if($n>=1){
+        $res = array(null, $arr[0]);
+    }
+    for($i=1; $i<$n; $i++){
+        $_n = count($res);
+        for($j=0; $j<$_n; $j++){
+            $tmp = $res[$j].$arr[$i];
+            $res[] = $tmp;
+        }
+    }
+    var_dump($res);
 }
+
+$arr=array('a','b','c','d');
+$res = array();
+/*for($l=1;$l<=count($arr); $l++) {
+    all_subsets($arr, 0, $res, 0, $l);
+}*/
+
+all_subsets2($arr);
