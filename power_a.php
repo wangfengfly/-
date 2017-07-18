@@ -27,6 +27,20 @@ function power2($a, $n){
     return $r;
 }
 
+function power3($a, $n){
+    if($n==1){
+        return $a;
+    }
+    if($n%2==0){
+        $r = power3($a, $n/2);
+        return $r*$r;
+    }else{
+        $r = power3($a, ($n-1)/2);
+        return $r*$r*$a;
+    }
+}
+
 
 var_dump(power1(2,4));
 var_dump(power2(2,7));
+var_dump(power3(2,8));
