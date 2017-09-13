@@ -24,5 +24,25 @@ function func($sum, $n){
     array_pop($res);
     func($sum, $n-1);
 }
+/*
+ * 非递归实现
+ */
+function non_recursive($sum, $n){
+    for($i=1; $i<(1<<$n); $i++){
+        $m = 0;
+        $res = array();
+        for($j=0; $j<$n; $j++){
+            if($i&(1<<$j)){
+                $m += ($n-$j);
+                $res[] = $n-$j;
+            }
+        }
+        if($sum==$m){
+            var_dump($res);
+        }
+    }
+}
 
 func(5, 5);
+
+non_recursive(10, 10);
