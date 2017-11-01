@@ -34,9 +34,33 @@ function sum($tree, $i, $start, $end, $l, $h){
     return sum($tree, 2*$i+1, $start, $mid, $l, $h) +
         sum($tree, 2*$i+2, $mid+1, $end, $l, $h);
 }
+/*
+ * 更新线段树
+ * $i 当前节点
+ * [$start, $end] 当前节点代表的范围
+ * $j $arr中被更新的元素下标
+ * $diff 更新前后差值
+ * O(lgn)
+ */
+function update(&$tree, $i, $start, $end, $j, $diff){
+    if($j<$start || $j>$end || !isset($tree[$i])){
+        return;
+    }
+    $tree[$i] += $diff;
+    $mid = $start + floor(($end - $start) / 2);
+    update($tree, 2 * $i + 1, $start, $mid, $j, $diff);
+    update($tree, 2 * $i + 2, $mid + 1, $end, $j, $diff);
+
+}
 
 $arr = array(1,3,5,7,9,11);
 $tree = array();
 build($arr, 0, count($arr)-1, 0, $tree);
 $sum = sum($tree, 0, 0, count($arr)-1, 1, 4);
 var_dump($sum);
+$newval = 4;
+$diff = $newval - $arr[4];
+$arr[4] = $newval;
+update($tree, 0, 0, count($arr)-1, 4, $diff);
+var_dump($arr);
+var_dump($tree);
