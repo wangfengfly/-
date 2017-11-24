@@ -2,7 +2,7 @@
 /*
  * 计算一个无序数组的逆序数，逆序数定义为：
  * 如果a[i]>a[j], i<j, 则是一个逆序。
- *
+ * 时间复杂度O(nlgn)
  */
 function merge(array &$arr, $left, $mid, $right){
 	$i=$left;
