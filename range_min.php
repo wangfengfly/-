@@ -5,6 +5,7 @@
  * Date: 2017/11/28
  * Time: 14:22
  * 求无序数组中(l,r)范围内的最小值。
+ * Sparse table
  */
 
 function build(array $arr){
