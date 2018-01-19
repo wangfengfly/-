@@ -36,7 +36,6 @@ class LinkedList{
         }
 
         if($slow == $fast){
-            var_dump($this->head);
             return true;
         }
         return false;
@@ -84,5 +83,5 @@ $n6->next = $n3;
 $list = new LinkedList($n1);
 
 var_dump($list->detectCycle());
-/*var_dump($list->getHead());
-var_dump($list->findFirst());*/
+var_dump($list->getHead());
+var_dump($list->findFirst());
