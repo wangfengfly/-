@@ -35,12 +35,4 @@ class Stack{
     }
 }
 
-$stack = new Stack(10);
-for($i=0; $i<10; $i++){
-    $stack->push($i);
-}
-
-while(!$stack->isEmpty()){
-    echo $stack->pop() . ' ';
-}
 

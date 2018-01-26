@@ -79,3 +79,5 @@ $str = '(3+8/6)*(4+5*3)';
 var_dump(compute($str));
 
 var_dump(compute('(8/6)'));
+
+var_dump(compute('(3*(4+5))+(5+2*3)'));
