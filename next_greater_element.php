@@ -37,3 +37,9 @@ function ngx(array $arr){
 
 $arr = array(15,6,12,19,8,7,3,10);
 ngx($arr);
+
+$arr = array(1,2,3,4,5,6);
+ngx($arr);
+
+$arr = array(6,5,4,3,2,1);
+ngx($arr);
