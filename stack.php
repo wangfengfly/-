@@ -33,6 +33,13 @@ class Stack{
     public function isFull(){
         return $this->size >= $this->capacity;
     }
+
+    public function getTop(){
+        if($this->isEmpty()){
+            return null;
+        }
+        return $this->data[$this->size-1];
+    }
 }
 
 
