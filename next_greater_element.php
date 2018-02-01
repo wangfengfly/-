@@ -3,6 +3,7 @@
  * Author: wangfeng
  * Date: 2018/1/31
  * Time: 15:14
+ * 求出无序数组中每一个数后面第一个比它大的数
  */
 require_once './stack.php';
 
