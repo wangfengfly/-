@@ -56,10 +56,10 @@ $uf = new UnionFindRank(5);
 $uf->union(0,1);
 $uf->union(2,3);
 $uf->union(1,2);
-
+//union合并的时候会by rank
 $uf->union(3,4);
-var_dump($uf->find(4));
-var_dump($uf->find(0));
 $uf->printNodes();
-
+//find的时候会进行树高度的压缩
+$uf->find(0);
+$uf->printNodes();
 ?>
