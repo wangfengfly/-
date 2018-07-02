@@ -58,6 +58,49 @@ class Tree{
         return max($this->levels2($root->left), $this->levels2($root->right))+1;
     }
 
+    /**
+     * @param $node1
+     * @param $node2
+     * @return bool
+     * 判断两个节点是否是堂兄弟
+     * 堂兄弟定义：两个节点在同一层，而且父节点不同。
+     * 时间复杂度O(n) 空间复杂度O(n)
+     */
+    public function isCousin($node1, $node2){
+        $node = new Node(-1);
+        $queue = [];
+        array_push($queue, $this->root);
+        $node1p = $node2p = null;
+        while($queue){
+            $size = count($queue);
+            while($size){
+                $val = array_shift($queue);
+                if($val->left){
+                    array_push($queue, $val->left);
+                }
+                if($val->right){
+                    array_push($queue, $val->right);
+                }
+                if($val->left === $node1 || $val->right === $node1){
+                    $node1p = $val;
+                }
+                if($val->left === $node2 || $val->right === $node2){
+                    $node2p = $val;
+                }
+                $size--;
+            }
+            if($node1p && $node2p){
+                if($node1p === $node2p){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else if($node1p && !$node2p || !$node1p && $node2p){
+                return false;
+            }
+        }
+    }
+
 
 }
 
@@ -71,3 +114,7 @@ $root->right->left = new Node(5);
 
 var_dump($t->levels());
 var_dump($t->levels2($root));
+
+var_dump($t->isCousin($root->left, $root->right));
+var_dump($t->isCousin($root->left->left, $root->right->left));
+var_dump($t->isCousin($root, $root->left));
