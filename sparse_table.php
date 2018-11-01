@@ -7,6 +7,31 @@
  * O(nlgn)
  * 空间O(nlgn)
  */
+/**
+ * @param $arr
+ * @return array|null
+ * 时间 O(n^2)
+ * 空间 O(n^2)
+ */
+function build2($arr){
+    $n = count($arr);
+    if(!$n){
+        return null;
+    }
+
+    $data = [];
+    for($i=0; $i<$n; $i++){
+        $data[$i][$i] = $arr[$i];
+    }
+
+    for($i=0; $i<$n-1; $i++){
+        for($j=$i+1; $j<$n; $j++){
+            $data[$i][$j] = min($data[$i][$j-1], $arr[$j]);
+        }
+    }
+
+    return $data;
+}
 
 function build(array $arr){
     if(!$arr){
