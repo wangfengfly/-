@@ -113,9 +113,27 @@ class Tree{
         }
     }
 
+    private function _height($node){
+        if(!$node){
+            return 0;
+        }
+
+        return max($this->_height($node->left), $this->_height($node->right))+1;
+    }
+
+    /**
+     * @return int|mixed
+     * 时间复杂度O(n)，因为需要遍历每个节点才能决定最深的路径。
+     * 空间复杂度O(lgn),因为每次只需要存储树的从顶点到叶子路径上的节点。
+     */
+    public function height(){
+        return $this->_height($this->root);
+    }
+
 }
 
 $tree = new Tree([1,2,3,4,5,6]);
 var_dump($tree);
 $tree->mirror();
 var_dump($tree);
+var_dump($tree->height());
