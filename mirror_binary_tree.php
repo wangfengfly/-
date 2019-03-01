@@ -62,12 +62,13 @@ class Queue{
 
 }
 
+
 class Tree{
 
     public $root;
     public $size;
 
-    public function __construct(array $data){
+    public function __construct(array $data=[]){
         if(!$data){
             return;
         }
@@ -94,6 +95,62 @@ class Tree{
                 $i++;
             }
         }
+    }
+
+    /**
+     * @return array|void
+     * 非递归中序遍历更优雅的实现
+     * 
+     */
+    public function preOrder2(){
+        if(!$this->root){
+            return;
+        }
+
+        $stack = [];
+        $res = [];
+        array_push($stack, $this->root);
+        while($stack){
+            $temp = array_pop($stack);
+            $res[] = $temp->data;
+            if($temp->right){
+                array_push($stack, $temp->right);
+            }
+            if($temp->left){
+                array_push($stack, $temp->left);
+            }
+        }
+        return $res;
+    }
+
+    public function preOrder(){
+        if(!$this->root){
+            return;
+        }
+
+        $res = [];
+
+        $temp = $this->root;
+        $stack = [];
+        array_push($stack, $temp);
+        while($stack){
+            $temp = $stack[count($stack)-1];
+            $res[] = $temp->data;
+            if($temp->left && $temp->right){
+                array_pop($stack);
+                array_push($stack, $temp->right);
+                array_push($stack, $temp->left);
+            }else if($temp->left){
+                array_pop($stack);
+                array_push($stack, $temp->left);
+            }else if($temp->right){
+                array_pop($stack);
+                array_push($stack, $temp->right);
+            } else{
+                array_pop($stack);
+            }
+        }
+        return $res;
     }
 
     public function mirror(){
@@ -137,3 +194,20 @@ var_dump($tree);
 $tree->mirror();
 var_dump($tree);
 var_dump($tree->height());
+
+$tree = new Tree();
+$node5 = new Node(null, null, 5);
+$node6 = new Node(null, null, 6);
+$node4 = new Node($node5, $node6, 4);
+$node2 = new Node(null, $node4, 2);
+
+$node10 = new Node(null, null, 10);
+$node9 = new Node($node10, null, 9);
+$node8 = new Node(null, null, 8);
+$node7 = new Node($node8, $node9, 7);
+$node3 = new Node($node7, null, 3);
+
+$root = new Node($node2, $node3, 1);
+$tree->root = $root;
+var_dump($tree->preOrder());
+var_dump($tree->preOrder2());
