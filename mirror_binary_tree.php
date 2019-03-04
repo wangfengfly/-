@@ -99,8 +99,8 @@ class Tree{
 
     /**
      * @return array|void
-     * 非递归中序遍历更优雅的实现
-     * 
+     * 非递归前序遍历更优雅的实现
+     *
      */
     public function preOrder2(){
         if(!$this->root){
@@ -153,6 +153,60 @@ class Tree{
         return $res;
     }
 
+    public function inOrder(){
+        if(!$this->root){
+            return;
+        }
+
+        $stack = [];
+        $res = [];
+        array_push($stack, $this->root);
+        $curr = $this->root;
+        while($stack){
+            while($curr->left){
+                array_push($stack, $curr->left);
+                $curr = $curr->left;
+            }
+            $item = array_pop($stack);
+            $res[] = $item->data;
+            if($item->right){
+                array_push($stack, $item->right);
+                $curr = $item->right;
+            }
+        }
+        return $res;
+    }
+
+    /**
+     * @return array|void
+     * 两个栈实现后序遍历
+     */
+    public function postOrder(){
+        if(!$this->root){
+            return;
+        }
+
+        $stack1 = [];
+        $stack2 = [];
+        $res = [];
+        array_push($stack1, $this->root);
+        while($stack1){
+            $item = array_pop($stack1);
+            array_push($stack2, $item);
+            if($item->left){
+                array_push($stack1, $item->left);
+            }
+            if($item->right){
+                array_push($stack1, $item->right);
+            }
+        }
+        while($stack2){
+            $item = array_pop($stack2);
+            $res[] = $item->data;
+        }
+        return $res;
+    }
+
     public function mirror(){
         $q = new Queue($this->size);
         $q->enQueue($this->root);
@@ -190,9 +244,7 @@ class Tree{
 }
 
 $tree = new Tree([1,2,3,4,5,6]);
-var_dump($tree);
 $tree->mirror();
-var_dump($tree);
 var_dump($tree->height());
 
 $tree = new Tree();
@@ -209,5 +261,6 @@ $node3 = new Node($node7, null, 3);
 
 $root = new Node($node2, $node3, 1);
 $tree->root = $root;
-var_dump($tree->preOrder());
-var_dump($tree->preOrder2());
+//var_dump($tree->preOrder());
+//var_dump($tree->preOrder2());
+var_dump($tree->postOrder());
